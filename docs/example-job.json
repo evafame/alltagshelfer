@@ -1,0 +1,21 @@
+{
+  "job": {
+    "job_id": "job_ck7a1",
+    "seeker_id": "user_12345",
+    "title": "Grocery shopping",
+    "detailed_description": "Buy groceries from the attached list, please leave contactless at door if not home.",
+    "audio_request_url": null,
+    "service_category": "shopping",
+    "location_address": "Marktplatz 1, 67227 Frankenthal, Germany",
+    "locationLat": 49.514,
+    "locationLng": 8.360,
+    "preferred_date_time": "2025-09-25T10:00:00Z",
+    "estimated_duration": 90,
+    "offered_price": 20.00,
+    "status": "posted",
+    "urgency_level": "low",
+    "created_at": "2025-09-23T09:00:00Z",
+    "updated_at": "2025-09-23T09:00:00Z",
+    "completion_photos": []
+  }
+}

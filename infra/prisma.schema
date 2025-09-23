@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String   @id @default(cuid())
+  name                   String
+  age                    Int?
+  gender                 String?
+  email                  String   @unique
+  phoneNumber            String
+  locationLat            Float?
+  locationLng            Float?
+  bio                    String?  @db.VarChar(500)
+  profilePhotoUrl        String?
+  userType               String   // helper | seeker | both
+  verificationStatus     String   @default("pending")
+  emergencyContactName   String?
+  emergencyContactPhone  String?
+  familyAccessEmails     String?  // CSV of emails (or separate table in future)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  helperProfile          Helper?  @relation(fields: [id], references: [userId])
+  jobsPosted             Job[]    @relation("SeekerJobs")
+  messagesSent           Message[] @relation("SentMessages")
+}
+
+model Helper {
+  userId                String   @id
+  experienceWithElderly String?
+  whyHelping            String?
+  availableServices     Json?
+  hourlyRate            Float?
+  flexiblePricing       Boolean  @default(false)
+  availabilitySchedule  Json?
+  backgroundCheckStatus String?
+  insuranceInfo         String?
+  ratingAverage         Float    @default(0)
+  totalJobsCompleted    Int      @default(0)
+  languagesSpoken       String?  // CSV or JSON
+  user                  User     @relation(fields: [userId], references: [id])
+}
+
+model Job {
+  id                  String   @id @default(cuid())
+  seekerId            String
+  helperId            String?
+  title               String
+  detailedDescription String?
+  audioRequestUrl     String?
+  serviceCategory     String
+  locationAddress     String?
+  locationLat         Float?
+  locationLng         Float?
+  preferredDateTime   DateTime?
+  estimatedDuration   Int?
+  offeredPrice        Float?
+  status              String   @default("posted")
+  urgencyLevel        String   @default("low")
+  completionPhotos    String?  // JSON array of URLs
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  seeker              User     @relation("SeekerJobs", fields: [seekerId], references: [id])
+}
+
+model Transfer {
+  id                 String   @id @default(cuid())
+  originalHelperId   String
+  newHelperId        String
+  jobId              String
+  transferReason     String?
+  transferMessage    String?
+  status             String   @default("pending")
+  createdAt          DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  jobId      String
+  reviewerId String
+  revieweeId String
+  rating     Int
+  writtenReview String?
+  createdAt  DateTime @default(now())
+}
+
+model Message {
+  id            String   @id @default(cuid())
+  senderId      String
+  recipientId   String
+  jobId         String?
+  messageText   String?
+  audioMessageUrl String?
+  messageType   String   @default("text")
+  readStatus    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
+model Payment {
+  id             String   @id @default(cuid())
+  jobId          String
+  amount         Float
+  platformFee    Float
+  stripePaymentId String?
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  completedAt    DateTime?
+}

@@ -1,0 +1,16 @@
+export async function recordBlob(onReady) {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    throw new Error('No audio support');
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const recorder = new MediaRecorder(stream);
+  const chunks = [];
+  recorder.ondataavailable = (e) => chunks.push(e.data);
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: 'audio/webm' });
+    onReady(blob);
+    stream.getTracks().forEach(t => t.stop());
+  };
+  recorder.start();
+  return recorder; // call recorder.stop() to finish
+}

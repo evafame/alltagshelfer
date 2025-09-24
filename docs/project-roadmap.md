@@ -70,7 +70,8 @@ Sie richtet sich an Nicht-Developer:innen und zeigt die wichtigsten Schritte von
 
 ---
 
-## Hinweis
-- Schritte mit [x] = bereits erledigt oder vorbereitet.
-- Kleine Schritte machen! Jede Phase für sich ist ein Erfolg.
-- Nicht alles auf einmal bauen – Ziel ist ein **MVP**, das funktioniert, nicht Perfektion.
+## Visuelle Übersicht (Flowchart)
+
+```mermaid
+flowchart TD
+  A[Phase 1: Repo]()

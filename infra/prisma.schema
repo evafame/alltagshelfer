@@ -26,10 +26,10 @@ model User {
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @updatedAt
 
-  // RELATIONS
-  helperProfile          Helper?   // 1:1 - Gegenstück ist in Helper.userId definiert
+  // Relations
+  helperProfile          Helper?
   jobsPosted             Job[]     @relation("SeekerJobs")
-  jobsTaken              Job[]     @relation("HelperJobs")     // optional: alle Jobs, die der User als Helper übernommen hat
+  jobsTaken              Job[]     @relation("HelperJobs")
   messagesSent           Message[] @relation("SentMessages")
   messagesReceived       Message[] @relation("ReceivedMessages")
 }
@@ -48,7 +48,7 @@ model Helper {
   totalJobsCompleted    Int      @default(0)
   languagesSpoken       String?  // CSV or JSON
 
-  // RELATION
+  // Relation
   user                  User     @relation(fields: [userId], references: [id])
 }
 
@@ -72,7 +72,7 @@ model Job {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 
-  // RELATIONS
+  // Relations
   seeker              User      @relation("SeekerJobs", fields: [seekerId], references: [id])
   helper              User?     @relation("HelperJobs", fields: [helperId], references: [id])
 }
@@ -109,7 +109,7 @@ model Message {
   readStatus      Boolean     @default(false)
   createdAt       DateTime    @default(now())
 
-  // RELATIONS
+  // Relations
   sender          User        @relation("SentMessages", fields: [senderId], references: [id])
   recipient       User        @relation("ReceivedMessages", fields: [recipientId], references: [id])
 }

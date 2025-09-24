@@ -152,3 +152,13 @@ export class SpeechService {
 // Singleton-Instanz: überall gleich verwenden
 const speech = new SpeechService();
 export default speech;
+
+import speech from '../services/speechService';
+
+{!speech.isAsrSupported() && (
+  <p role="status">Sprachsteuerung nicht verfügbar – Sie können alle Schritte per Knopf bedienen.</p>
+)}
+
+await speech.speakAsync('Willkommen bei Alltagshelfer.');
+await speech.speakAsync('Möchten Sie Hilfe erhalten oder Hilfe anbieten?');
+

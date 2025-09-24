@@ -1,59 +1,43 @@
 # CURSOR TASK: Roles, Screening (Wesenstest), Emergency & Moderation
 
 ## Ziel
-Baue eine PWA-UI (React) mit:
+PWA-UI (React) mit:
 - Rollenwahl: Helper {paid|free_volunteer}, Seeker {paid|free_basic}
-- Screening-Wizard (de-DE, TTS + optional Voice Input)
-- Gating: Emergency/Nacht nur für SeekerPaid + Screening=passed
-- Report-Abuse-Flow
-- Basis-Messaging und Job-Create mit Eligibility-Checks
+- ScreeningWizard (de-DE, TTS + optional SpeechRecognition)
+- Gates: Emergency/Nacht nur für Seeker paid + Screening=passed
+- Report-Abuse-Flow, Messaging (basic), Job Create/Assign mit Eligibility
 
 ## Datenmodell
-Nutze das Schema aus `/infra/prisma.schema`. Felder u. a.:
-- User: userType, helperRole?, seekerRole?, screeningStatus, screeningScore
-- Job: urgencyLevel, serviceCategory, helperId?, seekerId
-- Report, Message, Payment …
+Nutze `/infra/prisma.schema` (User, Helper, Job, Message, Payment, Review, Report, ScreeningQuestion, ScreeningResult).
 
 ## Seiten/Komponenten
-- `pages/Onboarding.jsx`: 
-  - Schritt 1: userType wählen (helper/seeker/both)
-  - Schritt 2: subrole wählen (paid/free_volunteer oder paid/free_basic)
-  - Schritt 3: ScreeningWizard starten (abfragen via GET /api/screening/questions?audience=...)
-- `components/ScreeningWizard.jsx`:
-  - lädt Fragen, liest sie per TTS vor, nimmt Antworten auf (Text/Voice)
-  - POST /api/screening/submit -> zeigt Score/Bestanden
-- `components/EmergencyButton.jsx`:
-  - sichtbar nur wenn seekerRole=paid && screeningStatus=passed
-  - setzt Job mit urgency=emergency und zeigt Sicherheits-Hinweise
-- `components/ReportAbuseModal.jsx`:
-  - POST /api/reports (Typen: harassment, inappropriate_request, suspicious_activity)
-- `components/RoleGuard.jsx`:
-  - Wrapper der prüft Rolle/Screening und UI-Teile ausblendet
+- pages/Onboarding.jsx
+- components/RoleSelector.jsx
+- components/ScreeningWizard.jsx
+- components/EmergencyButton.jsx (sichtbar nur bei Seeker paid + passed)
+- components/ReportAbuseModal.jsx
+- components/RoleGuard.jsx (blendet unzulässige Teile aus)
+- services/speechService.js (TTS + SpeechRecognition Wrapper, de-DE)
+- public/manifest.json & sw.js (PWA-Basis)
 
-## Job Create / Assign (Client-Logik)
-- Beim Erstellen:
-  - Wenn category in ['night_care'] oder urgency='emergency':
-    - blockiere, wenn Nutzer kein SeekerPaid ODER Screening!=passed
-- Beim Assign:
-  - blockiere, wenn Helper-Rolle nicht passt (free_volunteer darf keine Paid-Emergency Jobs)
+## API-Aufrufe (anhand backend/api-spec.md)
+- GET /api/screening/questions?audience=helper|seeker&locale=de-DE
+- POST /api/screening/submit
+- POST /api/jobs ; POST /api/jobs/:id/assign ; POST /api/jobs/:id/transfer ; POST /api/jobs/:id/complete
+- POST /api/messages ; GET /api/messages?jobId=
+- POST /api/reports
 
-## Speech & Accessibility
-- `services/speechService.js`: TTS (de-DE) + optional SpeechRecognition
-- Alle primären Buttons ≥ 60px Höhe, hoher Kontrast
-- Tastaturbedienung; aria-labels; Fokus-Reihenfolge logisch
+## Client-Logik
+- Job Create: wenn category in ["night_care"] oder urgency="emergency":
+  - blockiere, wenn SeekerRole != paid ODER Screening != passed
+- Assign: blockiere, wenn HelperRole nicht in allowedHelperRoles
+- TTS liest Onboarding & Fragen vor; große Buttons (>=60px), hoher Kontrast
 
-## Env-Flags (aus .env)
+## Env-Flags
 - FEATURE_SCREENING_REQUIRED=true
 - FEATURE_EMERGENCY_ENABLED=true
 - MIN_SCORE_HELPER_PAID, MIN_SCORE_HELPER_FREE, MIN_SCORE_SEEKER_PAID, MIN_SCORE_SEEKER_FREE
 
-## Tests (mindestens stubs)
-- Unit: eligibility(user, job) -> boolean
-- E2E: Onboarding -> Screening -> NightJob create (soll gated sein)
-
-## Output
-- Erzeuge/aktualisiere:
-  - `src/components/{ScreeningWizard,EmergencyButton,ReportAbuseModal,RoleGuard}.jsx`
-  - `src/services/speechService.js`
-  - `public/manifest.json`, `sw.js` (PWA-Basis)
-  - Routen/Seiten für Onboarding, Jobs, Messages
+## Tests (Stubs)
+- eligibility(user, job) -> boolean (Unit)
+- E2E: Onboarding -> Screening -> Night/Emergency create (Gate prüfen)

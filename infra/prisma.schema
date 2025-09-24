@@ -8,26 +8,30 @@ datasource db {
 }
 
 model User {
-  id                     String   @id @default(cuid())
+  id                     String    @id @default(cuid())
   name                   String
   age                    Int?
   gender                 String?
-  email                  String   @unique
+  email                  String    @unique
   phoneNumber            String
   locationLat            Float?
   locationLng            Float?
-  bio                    String?  @db.VarChar(500)
+  bio                    String?   @db.VarChar(500)
   profilePhotoUrl        String?
-  userType               String   // helper | seeker | both
-  verificationStatus     String   @default("pending")
+  userType               String    // helper | seeker | both
+  verificationStatus     String    @default("pending")
   emergencyContactName   String?
   emergencyContactPhone  String?
-  familyAccessEmails     String?  // CSV of emails (or separate table in future)
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  helperProfile          Helper?  @relation(fields: [id], references: [userId])
-  jobsPosted             Job[]    @relation("SeekerJobs")
+  familyAccessEmails     String?   // CSV of emails (or separate table in future)
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  // RELATIONS
+  helperProfile          Helper?   // 1:1 - Gegenstück ist in Helper.userId definiert
+  jobsPosted             Job[]     @relation("SeekerJobs")
+  jobsTaken              Job[]     @relation("HelperJobs")     // optional: alle Jobs, die der User als Helper übernommen hat
   messagesSent           Message[] @relation("SentMessages")
+  messagesReceived       Message[] @relation("ReceivedMessages")
 }
 
 model Helper {
@@ -43,11 +47,13 @@ model Helper {
   ratingAverage         Float    @default(0)
   totalJobsCompleted    Int      @default(0)
   languagesSpoken       String?  // CSV or JSON
+
+  // RELATION
   user                  User     @relation(fields: [userId], references: [id])
 }
 
 model Job {
-  id                  String   @id @default(cuid())
+  id                  String    @id @default(cuid())
   seekerId            String
   helperId            String?
   title               String
@@ -60,54 +66,61 @@ model Job {
   preferredDateTime   DateTime?
   estimatedDuration   Int?
   offeredPrice        Float?
-  status              String   @default("posted")
-  urgencyLevel        String   @default("low")
-  completionPhotos    String?  // JSON array of URLs
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  seeker              User     @relation("SeekerJobs", fields: [seekerId], references: [id])
+  status              String    @default("posted")
+  urgencyLevel        String    @default("low")
+  completionPhotos    String?   // JSON array of URLs
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  // RELATIONS
+  seeker              User      @relation("SeekerJobs", fields: [seekerId], references: [id])
+  helper              User?     @relation("HelperJobs", fields: [helperId], references: [id])
 }
 
 model Transfer {
-  id                 String   @id @default(cuid())
-  originalHelperId   String
-  newHelperId        String
-  jobId              String
-  transferReason     String?
-  transferMessage    String?
-  status             String   @default("pending")
-  createdAt          DateTime @default(now())
+  id               String   @id @default(cuid())
+  originalHelperId String
+  newHelperId      String
+  jobId            String
+  transferReason   String?
+  transferMessage  String?
+  status           String   @default("pending")
+  createdAt        DateTime @default(now())
 }
 
 model Review {
-  id         String   @id @default(cuid())
-  jobId      String
-  reviewerId String
-  revieweeId String
-  rating     Int
-  writtenReview String?
-  createdAt  DateTime @default(now())
-}
-
-model Message {
   id            String   @id @default(cuid())
-  senderId      String
-  recipientId   String
-  jobId         String?
-  messageText   String?
-  audioMessageUrl String?
-  messageType   String   @default("text")
-  readStatus    Boolean  @default(false)
+  jobId         String
+  reviewerId    String
+  revieweeId    String
+  rating        Int
+  writtenReview String?
   createdAt     DateTime @default(now())
 }
 
+model Message {
+  id              String      @id @default(cuid())
+  senderId        String
+  recipientId     String
+  jobId           String?
+  messageText     String?
+  audioMessageUrl String?
+  messageType     String      @default("text")
+  readStatus      Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+
+  // RELATIONS
+  sender          User        @relation("SentMessages", fields: [senderId], references: [id])
+  recipient       User        @relation("ReceivedMessages", fields: [recipientId], references: [id])
+}
+
 model Payment {
-  id             String   @id @default(cuid())
-  jobId          String
-  amount         Float
-  platformFee    Float
+  id              String   @id @default(cuid())
+  jobId           String
+  amount          Float
+  platformFee     Float
   stripePaymentId String?
-  status         String   @default("pending")
-  createdAt      DateTime @default(now())
-  completedAt    DateTime?
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+  completedAt     DateTime?
 }

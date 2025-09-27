@@ -1,97 +1,49 @@
-## Slogan
+# Alltagshelfer – Geschäftsmodell (Kurzfassung)
 
-**„Hier wird jede Hilfe gesehen, anerkannt und honoriert.“**
+**Slogan:** „Hier wird jede Hilfe gesehen, anerkannt und honoriert.“
 
-Dieser Satz ist Leitstern der Marke und spiegelt die Werte der Plattform wider: **Fairness, Anerkennung, Transparenz**. Er differenziert Alltagshelfer von reinen Gig- oder Task-Plattformen.
+## 1) Produkt & Zielgruppen
+Audio-first Plattform, die **Seeker** (paid/free_basic) und **Helper** (paid/free_volunteer) verbindet.
+Startnischen: Seniorenhilfe, Eltern/Alltag, Neu-Zugezogene/Migration, Kommunale/NGO-Kooperationen.
 
----
+## 2) Wertversprechen
+- **Seeker paid:** Emergency/Nacht, Prioritätsmatching, Support, geringere Fees.
+- **Seeker free_basic:** Basis-Jobs, keine Nacht/Emergency.
+- **Helper paid:** Verdienst, schnellere Auszahlungen, Pro-Badge.
+- **Helper volunteer:** HelpPoints, Badges, Rewards, Community-Anerkennung.
 
-## Anerkennungssystem für Ehrenamtliche
+## 3) Monetarisierung
+1. **Take-Rate 15%** (min. €1) je Job.
+2. **Abos:** Seeker Premium €7.99/Monat, Helper Pro €9.99/Monat.
+3. **Add-ons:** Versicherung pro Job, Express/Notfall-Fee, ID-/Background-Check.
+4. **Partner:** Kommunen/Unternehmen (CSR), Sponsoring für Volunteer-Rewards.
 
-Da die Plattform kein Verein ist, werden freiwillige Helfer nicht mit Geld vergütet, sondern über ein **Anerkennungs- & Reward-System**.
+## 4) Anerkennungssystem (Volunteers)
+- **HelpPoints** für bestätigte Hilfe → **Badges/Level** (Bronze–Gold–Mentor).
+- **Rewards:** Credits für eigene Hilfe, Gutscheine (lokale Partner), Community-Events.
+- Heute zentral gespeichert; später optional **Tokenisierung** (Smart Contracts) möglich.
+- Missbrauchsschutz: Punkte erst nach gegenseitiger Bestätigung, Limits, Audits.
 
-### HelpPoints & Badges
+## 5) Trust & Safety
+ScreeningWizard, RoleGuard (Emergency/Nacht nur Seeker paid + Screening passed), Abuse-Reporting,
+ID-Tiers (Volunteer Light → Pro Verified), klare Kategorien-Verbote (kein medizinischer Notdienst).
 
-* Jeder erfolgreich abgeschlossene freiwillige Einsatz bringt **HelpPoints**.
-* HelpPoints führen zu Leveln/Badges (Bronze, Silber, Gold, Mentor).
-* Badges sind im Profil sichtbar und stärken Reputation.
-* Gamification: Bestenlisten, Monats-Challenges ("Top Helper [Stadt]").
+## 6) Unit Economics (Beispiel)
+Ø Job €27, Take-Rate 15% = €4.05; variable Kosten ≈ €2.72 → Deckungsbeitrag ≈ €1.33/Job.
+Ziel: Premium-Attach (Seeker ≥35%, Helper ≥20%), B2B/Kommunalanteil ≥25% ARR Monat 12.
 
-### Einlösbare Rewards
+## 7) Roadmap (hochverdichtet)
+- **0–6 M:** MVP + HelpPoints/Badges, Mindestgebühr & Express-Fee, Referral.
+- **6–12 M:** Gutscheine/Partner-Rewards, Volunteer-Events, 3–5 Städte, Kommunalverträge.
+- **12–24 M:** Credits einlösbar, KI-Matching v1, CSR-Pakete.
+- **24–36 M:** Tokenisierung/CSR-API, Internationalisierung.
 
-* **Credits:** können von Volunteers eingelöst werden, um selbst Hilfe zu bekommen.
-* **Gutscheine:** lokale Partner (Supermarkt, VHS, ÖPNV, Stadtbibliothek) können Rewards sponsern.
-* **Events:** Volunteers erhalten Einladungen zu Dankes-Events oder Community-Treffen.
+## 8) Risiken & Worst-Case
+Sicherheitsvorfall, Re-Klassifizierung arbeitsrechtlich, Zahlungsdienst-Ausfall, Datenpanne, Missbrauch Emergency/Nacht,
+Angebot/Nachfrage-Mismatch, schwache Unit Economics, PR-Krise „Gratisarbeit“.
+**Gegenmaßnahmen:** Incident-Runbooks, juristische Struktur als Marktplatz, zweiter PSP, DSGVO-Hardening,
+Premium + Screening für Emergency, dynamische Anreize, Mindestpreise, transparente Kommunikation.
 
-### Tokens (zukünftig)
-
-* Heute: zentrale Punkte-Datenbank.
-* Morgen: optionale Tokenisierung (z. B. Smart Contracts), wenn gesellschaftlich/regulatorisch tragfähig.
-
-### Monetarisierungsintegration
-
-* Sponsoring durch Partnerunternehmen für Rewards (CSR-Programme).
-* Kommunen zahlen Lizenzen für Volunteer-Reports und Anerkennungssysteme.
-* Freiwilligenpunkte können für Premium-Features eingelöst werden (z. B. Express-Job).
-
-### Risiken & Gegenmaßnahmen
-
-* **Missbrauch:** Fake-Volunteers kassieren Rewards → Gegenmaßnahme: Punkte nur nach gegenseitiger Bestätigung.
-* **Inflation:** zu viele Rewards → Deckelung, Monatslimit, Partner-Sponsoring.
-* **Steuerrecht:** Rewards könnten steuerpflichtig sein → Gestaltung als symbolische Anerkennung.
-
----
-
-## Business Model Canvas (inkl. Anerkennung)
-
-* **Kundensegmente:**
-
-  * Seeker paid/free
-  * Helper paid/volunteer
-  * Kommunen/NGOs
-  * Unternehmen (CSR)
-
-* **Wertangebote:**
-
-  * Schnelle, sichere, sprachgesteuerte Hilfe
-  * Notfall/Express (Premium)
-  * Anerkennungssystem für Volunteers (HelpPoints, Badges, Rewards)
-  * Community-Impact sichtbar machen
-
-* **Kanäle:** PWA, lokale Partners, Social Media, NGOs, VHS
-
-* **Kundenbeziehungen:** In-App-Messaging, Community-Events, Premium-Support
-
-* **Einnahmen:** Take-Rate, Abos, Add-ons, B2B/Kommunalverträge, Sponsoring
-
-* **Schlüsselressourcen:** Plattform/Matching, Trust & Safety, Anerkennungssystem
-
-* **Schlüsselaktivitäten:** Nutzerakquise, Screening, Supply-Demand-Balance, Volunteer-Reward-Management
-
-* **Schlüsselpartner:** Payment/ID, Versicherer, Kommunen/NGOs, Unternehmen (CSR)
-
-* **Kostenstruktur:** Team, Marketing, KYC, Payment, Versicherung, Hosting, Reward-System
-
----
-
-## Roadmap (Ergänzung für Anerkennung)
-
-* **MVP (0–6 Monate):** HelpPoints + Badges sichtbar im Profil.
-* **Phase 2 (6–12 Monate):** lokale Gutscheine/Partner-Deals, Volunteer-Events.
-* **Phase 3 (12–24 Monate):** Credits einlösbar für eigene Hilfe-Sessions.
-* **Phase 4 (24–36 Monate):** Tokenisierung / API für externe CSR-Integration.
-
----
-
-## Worst-Case-Szenarien (Volunteer-System)
-
-* **Volunteers springen ab:** Motivation sinkt, wenn Anerkennung nicht spürbar ist.
-  → Gegenmaßnahme: regelmäßige Feedback-Loops, Gamification, Dankes-Events.
-* **PR-Risiko „Gratisarbeit ausnutzen“:** Gefahr negativer Presse.
-  → Gegenmaßnahme: Transparenz, klare Kommunikation, Slogan („gesehen, anerkannt, honoriert“), Rewards und Benefits sichtbar machen.
-* **Rechtliche Einstufung Rewards als Arbeitsentgelt:**
-  → Gegenmaßnahme: Rewards als „symbolisch“ gestalten, Partner-Deals nicht direkt in Geld umrechnen.
-
----
-
-Damit wird der Slogan **operativ eingelöst** und Ehrenamtliche fühlen sich nicht nur gebraucht, sondern auch **sichtbar wertgeschätzt**.
+## 9) KPIs (12 M)
+North Star: **Positiv bewertete Hilfe-Sessions pro aktiven Nutzer/Monat**.
+K-Faktor/Referral, Aktivierungsrate, Incident-Rate <0.2%, Dispute <1.2%, Premium-Attach, MRR, Kommunal-ARR.

@@ -1,0 +1,13 @@
+digraph RewardFlow {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", color="lightgrey"];
+  Help     [label="Volunteer Hilfe\n(z. B. Einkauf, Begleitung)"];
+  Confirm  [label="Bestätigung durch Seeker\n(App & Bewertung)"];
+  Points   [label="HelpPoints\n+ Badges (Bronze–Gold–Mentor)"];
+  Rewards  [label="Rewards:\n• Credits für eigene Hilfe\n• Gutscheine (Partner)\n• Community-Events"];
+  Impact   [label="Community-Impact sichtbar\n(Slogan: Hilfe wird gesehen, anerkannt & honoriert)"];
+  Help -> Confirm [label="Einsatz abgeschlossen"];
+  Confirm -> Points [label="App vergibt Punkte"];
+  Points -> Rewards [label="Einlösung"];
+  Rewards -> Impact [label="Wertschätzung & Motivation"];
+}

@@ -34,3 +34,7 @@ export default function JobDetail({ currentUser, job }) {
     </main>
   );
 }
+// Nach setCategory(...)
+if (picked?.requiresScreeningPassed) {
+  speech.speak('Für diese Kategorie ist ein bestandener Wesenstest erforderlich.');
+}
